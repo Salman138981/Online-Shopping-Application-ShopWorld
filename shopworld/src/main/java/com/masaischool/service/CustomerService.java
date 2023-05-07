@@ -12,4 +12,6 @@ public interface CustomerService {
 	public void changePassword(String oldPassword, String reEnterNewPassword) throws SomethingWentWrongException;
     
 	public void deleteAccount() throws SomethingWentWrongException;
+	
+	public Customer viewCustomer(String password) throws SomethingWentWrongException,NoRecordFoundException; 
 }

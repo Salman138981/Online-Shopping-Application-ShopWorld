@@ -35,5 +35,11 @@ public class CustomerServiceImpl implements CustomerService {
 		CustomerDAO cDAO = new CustomerDAOImpl();
 		cDAO.deleteAccount();
 	}
+	
+	@Override
+	public Customer viewCustomer(String password) throws SomethingWentWrongException,NoRecordFoundException{
+		CustomerDAO cDAO = new CustomerDAOImpl();
+		return cDAO.getCustomer(password);
+	}
 
 }

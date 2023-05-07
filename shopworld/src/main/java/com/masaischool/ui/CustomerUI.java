@@ -1,14 +1,20 @@
 package com.masaischool.ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.masaischool.entity.Address;
+import com.masaischool.entity.Cart;
 import com.masaischool.entity.Customer;
 import com.masaischool.entity.LoggedInUserId;
+import com.masaischool.entity.Product;
 import com.masaischool.exception.NoRecordFoundException;
+import com.masaischool.exception.ProductException;
 import com.masaischool.exception.SomethingWentWrongException;
 import com.masaischool.service.CustomerService;
 import com.masaischool.service.CustomerServiceImpl;
+import com.masaischool.service.ProductService;
+import com.masaischool.service.ProductServiceImpl;
 
 public class CustomerUI {
    
@@ -27,6 +33,7 @@ public class CustomerUI {
 		System.out.println("Enter Mobile Number: ");
 		String mobileNumber = sc.next();
 		
+	
 		
 		System.out.println("Enter street Number: ");
 		String streetNo = sc.next();
@@ -57,8 +64,43 @@ public class CustomerUI {
 		
 	}
 	
+    public static void addProductToCart(Scanner sc) {
+	  		
+    	System.out.println("Enter your password");
+    	String password= sc.next();
+    	
+    	
+    	Customer customer = viewCustomerById(password);
+    	ProductService ps = new ProductServiceImpl();
+    	
+    	
+    	try {
+			List<Product> productlist = ps.getAllProducts();
+			Cart cart = new Cart(customer,productlist);
+			
+		} catch (ProductException e) {
+			
+		} catch (NoRecordFoundException e) {
+			
+		} 
+	}
+    
+    public static Customer viewCustomerById(String password) {
+    	  
+    	Customer customer =null;
+    
+    	 try {
+    		 CustomerService cs = new CustomerServiceImpl();
+    		 customer = cs.viewCustomer(password);
+    	 }catch(NoRecordFoundException | SomethingWentWrongException ex) {
+    		 System.out.println(ex.getMessage());
+    	 }
+    	 return customer; 
+    	  
+    	
+    }
 	static void displayUserMenu() {
-		System.out.println("1. ");
+		System.out.println("1. Add Product to Cart ");
 		System.out.println("2. ");
 		System.out.println("3. ");
 		System.out.println("4. ");
@@ -67,6 +109,8 @@ public class CustomerUI {
 		System.out.println("7. Delete Account");
 		System.out.println("0. Logout");
 	}
+	
+	
 	public static void userMenu(Scanner sc) {
 		int choice = -1;
 		do {
@@ -75,9 +119,7 @@ public class CustomerUI {
 			choice = sc.nextInt();
     		switch(choice) {
     			case 1:
-    				//this code is same as we have used on the admin side
-    				//so we are using here as it is
-    				
+    				addProductToCart(sc);
     				break;
     			case 2:
     				
@@ -108,6 +150,8 @@ public class CustomerUI {
     	}while(choice != 0);
 	
 	}
+	
+	
 	
      static void userLogin(Scanner sc) {
 		System.out.print("Enter username ");
