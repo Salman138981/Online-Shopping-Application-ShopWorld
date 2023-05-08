@@ -117,5 +117,30 @@ public class CustomerDAOImpl implements CustomerDAO{
 			em.close();
 		}
 	}
+	
+	@Override
+	public Customer getCustomer(String password) throws SomethingWentWrongException,NoRecordFoundException{
+		EntityManager em = null;
+		Customer customer= null;
+		try {
+			em = EMUtils.getAnEntityManager();
+		   String query = "SELECT c FROM Customer c WHERE c.password = :password";
+		   Query que = em.createQuery(query);
+		   que.setParameter("password", password);
+		   
+		    customer =(Customer) que.getSingleResult();
+		    
+		    if(customer==null) {
+		    	throw new NoRecordFoundException("No customer found with with this password");
+		    }
+			
+			
+		}catch(PersistenceException ex) {
+			throw new SomethingWentWrongException("Unable to process request, try again later");
+		}finally{
+			em.close();
+		}
+		return customer;
+	}
 
 }

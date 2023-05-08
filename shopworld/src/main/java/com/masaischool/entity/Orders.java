@@ -13,7 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Order {
+public class Orders {
 	 @Id
 	  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private int orderId;
@@ -32,13 +32,13 @@ public class Order {
 	 
 	 @OneToOne(cascade = CascadeType.ALL)
 	 private Address address;
-
-	public Order() {
+     
+	public Orders() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Order(LocalDate orderDate, String orderStatus, Customer customer, List<Product> productList,
+	public Orders(LocalDate orderDate, String orderStatus, Customer customer, List<Product> productList,
 			Address address) {
 		super();
 		this.orderDate = orderDate;

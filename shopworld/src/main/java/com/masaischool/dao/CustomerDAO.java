@@ -12,5 +12,7 @@ public interface CustomerDAO {
 	public void changePassword(String oldPassword, String reEnterNewPassword) throws SomethingWentWrongException;
    
 	public void deleteAccount() throws SomethingWentWrongException;
-
+    
+	public Customer getCustomer(String password) throws SomethingWentWrongException,NoRecordFoundException;
+	
 }

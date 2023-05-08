@@ -1,14 +1,22 @@
 package com.masaischool.ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.masaischool.entity.Address;
+import com.masaischool.entity.Cart;
 import com.masaischool.entity.Customer;
 import com.masaischool.entity.LoggedInUserId;
+import com.masaischool.entity.Product;
 import com.masaischool.exception.NoRecordFoundException;
+import com.masaischool.exception.ProductException;
 import com.masaischool.exception.SomethingWentWrongException;
+import com.masaischool.service.CartService;
+import com.masaischool.service.CartServiceImpl;
 import com.masaischool.service.CustomerService;
 import com.masaischool.service.CustomerServiceImpl;
+import com.masaischool.service.ProductService;
+import com.masaischool.service.ProductServiceImpl;
 
 public class CustomerUI {
    
@@ -27,6 +35,7 @@ public class CustomerUI {
 		System.out.println("Enter Mobile Number: ");
 		String mobileNumber = sc.next();
 		
+	
 		
 		System.out.println("Enter street Number: ");
 		String streetNo = sc.next();
@@ -41,9 +50,9 @@ public class CustomerUI {
 		System.out.println("Enter pincode: ");
 		String pincode= sc.next();
 		Address address = new Address(streetNo,buildingName,city,state,country,pincode);
-		int isDeleted = 0;
 		
-		Customer customer = new Customer(firstName,lastName,username,password,email,mobileNumber,isDeleted,address);
+		
+		Customer customer = new Customer(firstName,lastName,username,password,email,mobileNumber,address);
 		
 		try {
 			
@@ -57,16 +66,70 @@ public class CustomerUI {
 		
 	}
 	
+    public static void addProductToCart(Scanner sc) {
+	  		
+    	System.out.println("Enter your password");
+    	String password= sc.next();
+    	
+    	System.out.println("Enter Product Id:");
+    	int productId = sc.nextInt();
+    	
+    	System.out.println("Enter quantity: ");
+    	int quantity = sc.nextInt();
+    	Customer customer = viewCustomerByPassword(password);
+    	ProductService ps = new ProductServiceImpl();
+    	
+    	
+    	
+    	try {
+    		
+    		Product product = ps.getAnProduct(productId);
+			List<Product> productlist = ps.getAllProducts();
+			Cart cart = new Cart(customer,productlist);
+			
+			CartService cartService = new CartServiceImpl();
+			
+			try {
+				cartService.addProductToCart(cart,product,quantity);
+			} catch (SomethingWentWrongException e) {
+				System.out.println(e.getMessage());
+				
+			}
+			
+    	} catch (ProductException | NoRecordFoundException e) {
+			System.out.println(e.getMessage());
+			
+		} 
+	}
+    
+    public static Customer viewCustomerByPassword(String password) {
+    	  
+    	Customer customer =null;
+    
+    	 try {
+    		 CustomerService cs = new CustomerServiceImpl();
+    		 customer = cs.viewCustomer(password);
+    	 }catch(NoRecordFoundException | SomethingWentWrongException ex) {
+    		 System.out.println(ex.getMessage());
+    	 }
+    	 return customer; 
+    	  
+    	
+    }
 	static void displayUserMenu() {
-		System.out.println("1. ");
+		System.out.println("1. Add Product to Cart ");
 		System.out.println("2. ");
 		System.out.println("3. ");
 		System.out.println("4. ");
 		System.out.println("5. ");
-		System.out.println("6. Change Password");
-		System.out.println("7. Delete Account");
+		System.out.println("6. Add order: ");
+		System.out.println("7. Display Address ");
+		System.out.println("8. Change Password");
+		System.out.println("9. Delete Account");
 		System.out.println("0. Logout");
 	}
+	
+	
 	public static void userMenu(Scanner sc) {
 		int choice = -1;
 		do {
@@ -75,9 +138,7 @@ public class CustomerUI {
 			choice = sc.nextInt();
     		switch(choice) {
     			case 1:
-    				//this code is same as we have used on the admin side
-    				//so we are using here as it is
-    				
+    				addProductToCart(sc);
     				break;
     			case 2:
     				
@@ -86,15 +147,19 @@ public class CustomerUI {
     			
     				break;
     			case 4:
-    			
-    				break;
-    			case 5:
+    			     
     				
     				break;
     			case 6:
-    				changePassword(sc);
+    				OrderUI.addOrder(sc);
     				break;
     			case 7:
+    				getAddress(sc);
+    				break;
+    			case 8:
+    				changePassword(sc);
+    				break;
+    			case 9:
     				deleteAccount(sc);
     				System.out.println("Logging you out");
     				choice = 0;
@@ -108,6 +173,16 @@ public class CustomerUI {
     	}while(choice != 0);
 	
 	}
+	
+	public static Address getAddress(Scanner sc) {
+		 System.out.println("Enter address id: ");
+		 int addressId = sc.nextInt();
+		  
+		 return AddressUI.getAddressById(addressId);
+		 
+	}
+	
+	
 	
      static void userLogin(Scanner sc) {
 		System.out.print("Enter username ");

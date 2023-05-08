@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
@@ -16,10 +17,12 @@ public class Cart {
 	  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	  private int cartId;
 	 
+	 
 	  @OneToOne(cascade = CascadeType.ALL)
 	  private Customer customer;
 	  
 	  @OneToMany(cascade = CascadeType.ALL)
+	  @JoinColumn(name = "cart_productId")
 	  private List<Product> productlist;
 
 	public Cart() {

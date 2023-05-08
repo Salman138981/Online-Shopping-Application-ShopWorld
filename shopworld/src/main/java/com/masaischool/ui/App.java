@@ -5,12 +5,12 @@ import java.util.Scanner;
 public class App{
 	
 	static void displayAdminMenu() {
-		System.out.println("1. ");
-		System.out.println("2. ");
-		System.out.println("3. ");
-		System.out.println("4. ");
-		System.out.println("5. ");
-		System.out.println("6. ");
+		System.out.println("1. Add product ");
+		System.out.println("2. Add Category");
+		System.out.println("3. Search All Product ");
+		System.out.println("4. Remove product");
+		System.out.println("5. update Product price");
+		System.out.println("6. view Product");
 		System.out.println("7. ");
 		System.out.println("8. ");
 		System.out.println("9. ");
@@ -26,22 +26,25 @@ public class App{
 			choice = sc.nextInt();
     		switch(choice) {
     			case 1:
-    				
+    				AdminUI.addProduct(sc);
     				break;
-    			case 2:
     				
+    			case 2:
+    				AdminUI.addCategory(sc);
     				break;
     			case 3:
     				
+    				AdminUI.vewAllProducts();
+    				
     				break;
     			case 4:
-    				
+    				AdminUI.removeProduct(sc);
     				break;
     			case 5:
-    				
+    				AdminUI.updatePrice(sc);
     				break;
     			case 6:
-    				
+    				AdminUI.viewProduct(sc);
     				break;
     			case 7:
     				

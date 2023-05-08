@@ -99,6 +99,12 @@ public String getPincode() {
 
 public void setPincode(String pincode) {
 	this.pincode = pincode;
+}
+
+@Override
+public String toString() {
+	return "addressId=" + addressId + ", streetNo=" + streetNo + ", buildingName=" + buildingName + ", city="
+			+ city + ", state=" + state + ", country=" + country + ", pincode=" + pincode;
 } 
   
  
