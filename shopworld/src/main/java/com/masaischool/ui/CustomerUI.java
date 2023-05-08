@@ -11,6 +11,8 @@ import com.masaischool.entity.Product;
 import com.masaischool.exception.NoRecordFoundException;
 import com.masaischool.exception.ProductException;
 import com.masaischool.exception.SomethingWentWrongException;
+import com.masaischool.service.CartService;
+import com.masaischool.service.CartServiceImpl;
 import com.masaischool.service.CustomerService;
 import com.masaischool.service.CustomerServiceImpl;
 import com.masaischool.service.ProductService;
@@ -48,9 +50,9 @@ public class CustomerUI {
 		System.out.println("Enter pincode: ");
 		String pincode= sc.next();
 		Address address = new Address(streetNo,buildingName,city,state,country,pincode);
-		int isDeleted = 0;
 		
-		Customer customer = new Customer(firstName,lastName,username,password,email,mobileNumber,isDeleted,address);
+		
+		Customer customer = new Customer(firstName,lastName,username,password,email,mobileNumber,address);
 		
 		try {
 			
@@ -69,23 +71,38 @@ public class CustomerUI {
     	System.out.println("Enter your password");
     	String password= sc.next();
     	
+    	System.out.println("Enter Product Id:");
+    	int productId = sc.nextInt();
     	
-    	Customer customer = viewCustomerById(password);
+    	System.out.println("Enter quantity: ");
+    	int quantity = sc.nextInt();
+    	Customer customer = viewCustomerByPassword(password);
     	ProductService ps = new ProductServiceImpl();
     	
     	
+    	
     	try {
+    		
+    		Product product = ps.getAnProduct(productId);
 			List<Product> productlist = ps.getAllProducts();
 			Cart cart = new Cart(customer,productlist);
 			
-		} catch (ProductException e) {
+			CartService cartService = new CartServiceImpl();
 			
-		} catch (NoRecordFoundException e) {
+			try {
+				cartService.addProductToCart(cart,product,quantity);
+			} catch (SomethingWentWrongException e) {
+				System.out.println(e.getMessage());
+				
+			}
+			
+    	} catch (ProductException | NoRecordFoundException e) {
+			System.out.println(e.getMessage());
 			
 		} 
 	}
     
-    public static Customer viewCustomerById(String password) {
+    public static Customer viewCustomerByPassword(String password) {
     	  
     	Customer customer =null;
     
@@ -105,8 +122,10 @@ public class CustomerUI {
 		System.out.println("3. ");
 		System.out.println("4. ");
 		System.out.println("5. ");
-		System.out.println("6. Change Password");
-		System.out.println("7. Delete Account");
+		System.out.println("6. Add order: ");
+		System.out.println("7. Display Address ");
+		System.out.println("8. Change Password");
+		System.out.println("9. Delete Account");
 		System.out.println("0. Logout");
 	}
 	
@@ -128,15 +147,19 @@ public class CustomerUI {
     			
     				break;
     			case 4:
-    			
-    				break;
-    			case 5:
+    			     
     				
     				break;
     			case 6:
-    				changePassword(sc);
+    				OrderUI.addOrder(sc);
     				break;
     			case 7:
+    				getAddress(sc);
+    				break;
+    			case 8:
+    				changePassword(sc);
+    				break;
+    			case 9:
     				deleteAccount(sc);
     				System.out.println("Logging you out");
     				choice = 0;
@@ -149,6 +172,14 @@ public class CustomerUI {
     		}
     	}while(choice != 0);
 	
+	}
+	
+	public static Address getAddress(Scanner sc) {
+		 System.out.println("Enter address id: ");
+		 int addressId = sc.nextInt();
+		  
+		 return AddressUI.getAddressById(addressId);
+		 
 	}
 	
 	

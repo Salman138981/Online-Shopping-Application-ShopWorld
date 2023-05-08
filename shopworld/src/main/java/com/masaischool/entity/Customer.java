@@ -32,6 +32,7 @@ public class Customer {
   @Column(nullable = false, length = 12)
   private String mobileNumber;
   
+  @Column(name = "is_deleted", nullable = false)
   private int isDeleted;
   
   @OneToOne(cascade = CascadeType.ALL)
@@ -43,7 +44,7 @@ public Customer() {
 }
 
 public Customer(String firstName, String lastName, String username, String password, String email, String mobileNumber,
-		 int isDeleted,Address address) {
+		 Address address) {
 	super();
 	this.firstName = firstName;
 	this.lastName = lastName;
@@ -51,7 +52,7 @@ public Customer(String firstName, String lastName, String username, String passw
 	this.password = password;
 	this.email = email;
 	this.mobileNumber = mobileNumber;
-	this.isDeleted = isDeleted;
+	
 	this.address = address;
 }
 
