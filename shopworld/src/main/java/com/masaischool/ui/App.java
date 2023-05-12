@@ -11,10 +11,9 @@ public class App{
 		System.out.println("4. Remove product");
 		System.out.println("5. update Product price");
 		System.out.println("6. view Product");
-		System.out.println("7. ");
-		System.out.println("8. ");
-		System.out.println("9. ");
-		System.out.println("10. ");
+		System.out.println("7. update order status");
+		System.out.println("8. view All order List ordered by customer");
+		
 		System.out.println("0. Logout");
 	}
 
@@ -23,13 +22,13 @@ public class App{
 		do {
 			displayAdminMenu();
 			System.out.print("Enter selection ");
-			choice = sc.nextInt();
+			choice = sc.nextInt();                                     
     		switch(choice) {
     			case 1:
     				AdminUI.addProduct(sc);
     				break;
     				
-    			case 2:
+    		 	case 2:
     				AdminUI.addCategory(sc);
     				break;
     			case 3:
@@ -43,21 +42,18 @@ public class App{
     			case 5:
     				AdminUI.updatePrice(sc);
     				break;
+    			
     			case 6:
     				AdminUI.viewProduct(sc);
     				break;
+    				
     			case 7:
-    				
+    				OrderUI.updateOrder(sc);
     				break;
+    				
     			case 8:
-    				
-    				break;
-    			case 9:
-    				
-    				break;
-    			case 10:
-    				
-    				break;
+    				OrderUI.viewOrderList();
+    		     break;
     			case 0:
     				System.out.println("Bye Bye Admin");
     				break;

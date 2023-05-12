@@ -118,19 +118,18 @@ public class CustomerUI {
     }
 	static void displayUserMenu() {
 		System.out.println("1. Add Product to Cart ");
-		System.out.println("2. ");
-		System.out.println("3. ");
-		System.out.println("4. ");
-		System.out.println("5. ");
-		System.out.println("6. Add order: ");
-		System.out.println("7. Display Address ");
-		System.out.println("8. Change Password");
-		System.out.println("9. Delete Account");
+		System.out.println("2. Remove product from cart");
+		System.out.println("3. Add order");
+		System.out.println("4. view Order");
+		System.out.println("5. remove order");
+		System.out.println("6. Display Address ");
+		System.out.println("7. Change Password");
+		System.out.println("8. Delete Account");
 		System.out.println("0. Logout");
 	}
 	
 	
-	public static void userMenu(Scanner sc) {
+	public static void userMenu(Scanner sc){
 		int choice = -1;
 		do {
 			displayUserMenu();
@@ -141,25 +140,25 @@ public class CustomerUI {
     				addProductToCart(sc);
     				break;
     			case 2:
-    				
+    				CartUI.removeProductFromCart(sc);
     				break;
     			case 3:
-    			
-    				break;
-    			case 4:
-    			     
-    				
-    				break;
-    			case 6:
     				OrderUI.addOrder(sc);
     				break;
-    			case 7:
+    			case 4:
+    			    OrderUI.viewOrder(sc); 
+    				
+    				break;
+    			case 5:
+    				OrderUI.removeOrder(sc);
+    				break;
+    			case 6:
     				getAddress(sc);
     				break;
-    			case 8:
+    			case 7:
     				changePassword(sc);
     				break;
-    			case 9:
+    			case 8:
     				deleteAccount(sc);
     				System.out.println("Logging you out");
     				choice = 0;
