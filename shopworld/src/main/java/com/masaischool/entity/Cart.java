@@ -22,8 +22,10 @@ public class Cart {
 	  private Customer customer;
 	  
 	  @OneToMany(cascade = CascadeType.ALL)
-	  @JoinColumn(name = "cart_productId")
+	  //@JoinColumn(name = "cart_productId")
 	  private List<Product> productlist;
+	  
+	 
 
 	public Cart() {
 		super();

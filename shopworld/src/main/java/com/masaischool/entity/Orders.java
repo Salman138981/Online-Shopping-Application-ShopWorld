@@ -33,6 +33,10 @@ public class Orders {
 	 @OneToOne(cascade = CascadeType.ALL)
 	 private Address address;
      
+	   public List<Product> getProducts() {
+	        return productList;
+	    }
+	 
 	public Orders() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -94,6 +98,12 @@ public class Orders {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "orderId=" + orderId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus
+				+ ", customer=" + customer.getCustomerId() + ", address=" + address.getAddressId();
 	}
 	 
 	 
