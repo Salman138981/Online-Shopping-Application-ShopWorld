@@ -5,17 +5,21 @@
 ## Project Overview
 ### The goal of the Online Shopping Application is to offer users a seamless online shopping experience. It enables customers to browse through a wide range of products, view detailed product information, add items to their shopping cart, and complete the purchase through a secure payment gateway.
 
+## Tech Stack
+* java
+* Hibernate
+* MySQL
+* Maven
+
+## Modules
+* Login Module
+* Customer Module
+* Product Module
+* Order Module
+* Cart Module
+
 ## Project Schema
 ![project Schema](https://github.com/Salman138981/Repo_prac/assets/85638200/604b7715-c47a-4219-984a-0440b1c932df)
-
-## Technologies Used
----------------------
-### The project utilizes several technologies to accomplish its objectives:
-
-### Java: The primary programming language used to develop the application.
-### Hibernate: The ORM framework employed for efficient database access and manipulation.
-### MySQL: The chosen database management system for storing and retrieving application data.
-### Maven: The build automation tool employed for dependency management and project configuration.
 
 ## Key Features
 ------------------
