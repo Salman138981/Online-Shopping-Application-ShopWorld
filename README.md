@@ -5,7 +5,7 @@
 ## Project Overview
 ### The goal of the Online Shopping Application is to offer users a seamless online shopping experience. It enables customers to browse through a wide range of products, view detailed product information, add items to their shopping cart, and complete the purchase through a secure payment gateway.
 
-![shopworld](cloudByte.PNG)
+![shopworld](shopworld.png)
 
 ## Tech Stack
 * java
